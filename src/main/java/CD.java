@@ -5,13 +5,13 @@ public class CD {
   private static ArrayList<CD> instances = new ArrayList<CD>();
 
   private String mcdName;
-  private String mcdArtist;
-  private int mcdId;
+  private String mcdArtist = "unnamed";
+  private int mId;
 
   public CD(String cdName) {
     mcdName = cdName;
     instances.add(this);
-    mcdId = instances.size();
+    mId = instances.size();
   }
 
   public String getName() {
@@ -27,7 +27,7 @@ public class CD {
   }
 
   public int getId() {
-  return mcdId;
+  return mId;
   }
 
   public static ArrayList<CD>  all() {

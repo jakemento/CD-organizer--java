@@ -9,43 +9,61 @@ import static spark.Spark.*;
 
 public class App {
   public static void main(String[] args) {
-    // staticFileLocation("/public");
-    // String layout = "templates/layout.vtl";
-    //
-    // get("/", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   model.put("template", "templates/index.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("/tasks", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   model.put("tasks", Task.all());
-    //   model.put("template", "templates/tasks.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("tasks/new", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   model.put("template", "templates/task-form.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    //
-    // post("/tasks", (request,response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   String description = request.queryParams("description");
-    //   Task newTask = new Task(description);
-    //   model.put("template", "templates/success.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("/tasks/:id", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   Task task = Task.find(Integer.parseInt(request.params(":id")));
-    //   model.put("task", task);
-    //   model.put("template", "templates/task.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
+    staticFileLocation("/public");
+    String layout = "templates/layout.vtl";
+
+    get("/", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/CDs", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("CDs", CD.all());
+      model.put("template", "templates/cds.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("CDs/new", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/cd-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("CDs/:id/add/artist", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      CD cd = CD.find(Integer.parseInt(request.params(":id")));
+      model.put("cd", cd);
+      model.put("template", "templates/artist-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("CDs/:id/add/artist", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String artistName = request.queryParams("artistName");
+      CD cd = CD.find(Integer.parseInt(request.params(":id")));
+      cd.setArtist(artistName);
+      model.put("cd", cd);
+      model.put("template", "templates/cd.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
+    post("/CDs", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String cdName = request.queryParams("cdName");
+      CD newCD = new CD(cdName);
+      model.put("template", "templates/success.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/CDs/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      CD cd = CD.find(Integer.parseInt(request.params(":id")));
+      model.put("cd", cd);
+      model.put("template", "templates/cd.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }

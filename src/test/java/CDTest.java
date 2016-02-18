@@ -18,7 +18,7 @@ public class CDTest {
   @Test
   public void CD_returnsArtist() {
     CD myCD = new CD ("Slim Shady LP");
-    assertEquals(null, myCD.getArtist());
+    assertEquals("unnamed", myCD.getArtist());
   }
   @Test
   public void CD_setsArtist() {
@@ -33,5 +33,21 @@ public class CDTest {
     assertTrue(CD.all().contains(firstCD));
     assertTrue(CD.all().contains(secondCD));
 }
+  @Test
+  public void newId_CdSInstantiateWithAnID_true() {
+  CD myCD = new CD("Slim Shady LP");
+  assertEquals(CD.all().size(), myCD.getId());
+  }
 
+  @Test
+  public void find_returnsNullWhenNoCDFound_null() {
+    assertTrue(CD.find(999) == null);
+  }
+
+    @Test
+    public void clear_emptiesAllCDsFromArrayList() {
+      CD myCD = new CD("Mow the lawn");
+      CD.clear();
+      assertEquals(CD.all().size(), 0);
+  }
 }

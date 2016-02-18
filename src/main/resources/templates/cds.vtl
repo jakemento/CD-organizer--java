@@ -1,0 +1,7 @@
+<h1> All CDs </h1>
+<ul>
+#foreach ($cd in $CDs)
+  <a class="btn btn-default" href="/CDs/$cd.getId()">$cd.getName()</a>
+#end
+</ul>
+<a href="/CDs/new">Add New CD</a>
